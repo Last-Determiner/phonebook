@@ -4,17 +4,15 @@ import sqlite3
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
+        #=========Fixed Size =============
         Form.setFixedSize(300, 350)
-        # Set gradient background
+        #==========Background=============
         gradient = QtGui.QLinearGradient(0, 0, 0, Form.height())
-        gradient.setColorAt(0, QtGui.QColor("#f0f0f0"))  # Light color
-        gradient.setColorAt(1, QtGui.QColor("#d0d0d0"))  # Darker color
+        gradient.setColorAt(0, QtGui.QColor("#f0f0f0")) 
+        gradient.setColorAt(1, QtGui.QColor("#d0d0d0")) 
         Form.setStyleSheet("background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f0f0f0, stop:1 #d0d0d0);")
-
-
-        # Styling for labels
+        #Labels
         label_style = "QLabel { color: black; padding: 5px; }"
-
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(30, 110, 60, 25))
         self.label.setObjectName("label")
@@ -34,7 +32,7 @@ class Ui_Form(object):
         self.label_4.setGeometry(QtCore.QRect(137, 30, 70, 23))
         self.label_4.setObjectName("label_4")
         self.label_4.setStyleSheet(label_style)
-
+        #===========Input Boxes ===================
         self.NameRecieve = QtWidgets.QTextEdit(Form)
         self.NameRecieve.setGeometry(QtCore.QRect(100, 60, 141, 31))
         self.NameRecieve.setObjectName("NameRecieve")
@@ -43,11 +41,11 @@ class Ui_Form(object):
         self.NumberRecieve.setGeometry(QtCore.QRect(100, 100, 141, 31))
         self.NumberRecieve.setObjectName("NumberRecieve")
 
-        # Styling for buttons
+        #======================Styling for buttons============================================================
         button_style = ("QPushButton { color: white; background-color: #4CAF50; border: 2px solid #4CAF50;"
                         " border-radius: 10px; padding: 5px; }"
-                        "QPushButton:hover { background-color: #45a049; }")  # Light green color on hover
-
+                        "QPushButton:hover { background-color: #45a049; }")  
+        
         self.Save = QtWidgets.QPushButton(Form)
         self.Save.setGeometry(QtCore.QRect(130, 140, 75, 23))
         self.Save.setObjectName("Save")
@@ -72,17 +70,17 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
-        self.ComboData()  # Call ComboData to populate ComboBox with existing data
+        self.ComboData()  # Fill ComboBox with existing data
 
     # ===========importing============
     def Insert(self):
         try:
             con = sqlite3.connect("h30.db")
-            number = self.NumberRecieve.toPlainText().strip()  # Use strip() to remove leading/trailing spaces
-            name = self.NameRecieve.toPlainText().strip()  # Use strip() to remove leading/trailing spaces
+            number = self.NumberRecieve.toPlainText().strip()  
+            name = self.NameRecieve.toPlainText().strip()  
             if name and number:  # Check if both name and number are non-empty
                 data = [name, number]
-                con.execute("INSERT INTO daftarche(Name,Number) VALUES(?,?)", data)  # Fix typo in SQL statement
+                con.execute("INSERT INTO daftarche(Name,Number) VALUES(?,?)", data)  
                 con.commit()
                 self.comboBox.addItem(name)  # Add the inserted name to the ComboBox
                 print("Done")
